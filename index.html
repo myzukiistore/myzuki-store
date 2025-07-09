@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>MYZUKII STORE - Payment</title>
   <style>
-    /* Loading Screen */
     #loading-screen {
       position: fixed;
       top: 0; left: 0; width: 100%; height: 100%;
@@ -22,7 +21,7 @@
     body {
       margin: 0;
       font-family: 'Segoe UI', sans-serif;
-      background: url('img/bg.jpg') center/cover no-repeat;
+      background: url('bg.jpg') center/cover no-repeat;
       background-attachment: fixed;
       display: flex;
       flex-direction: column;
@@ -37,7 +36,6 @@
       z-index: -1;
     }
 
-    /* Bar Atas */
     .top-bar {
       width: 100%;
       max-width: 420px;
@@ -178,19 +176,19 @@
 
   <!-- Musik -->
   <audio autoplay loop>
-    <source src="audio/music.mp3" type="audio/mp3">
+    <source src="music.mp3" type="audio/mp3">
   </audio>
 
   <!-- Bar Atas -->
   <div class="top-bar">
-    <img src="img/logo.png" alt="MYZUKII STORE Logo" class="logo" />
+    <img src="logo.png" alt="MYZUKII STORE Logo" class="logo" />
     <div class="top-icons">
-      <a href="#"><img class="icon" src="img/gopay.png" alt="GoPay" /></a>
+      <a href="#"><img class="icon" src="gopay.png" alt="GoPay" /></a>
       <a href="https://link.dana.id/qr/083173255250" target="_blank">
-        <img class="icon" src="img/dana.png" alt="DANA" />
+        <img class="icon" src="dana.png" alt="DANA" />
       </a>
       <a href="https://wa.me/6283173255250" target="_blank">
-        <img class="icon" src="img/wa.png" alt="WhatsApp" />
+        <img class="icon" src="wa.png" alt="WhatsApp" />
       </a>
     </div>
   </div>
@@ -201,7 +199,7 @@
 
     <div class="payment-method">
       <div class="payment-left">
-        <img src="img/dana.png" alt="Dana">
+        <img src="dana.png" alt="Dana">
         <div class="account-info">
           <strong>083173255250</strong><br />DAVIS
         </div>
@@ -211,7 +209,7 @@
 
     <div class="payment-method">
       <div class="payment-left">
-        <img src="img/wa.png" alt="WhatsApp">
+        <img src="wa.png" alt="WhatsApp">
         <div class="account-info">
           <strong>083173255250</strong><br />WhatsApp Order
         </div>
@@ -223,7 +221,7 @@
   <!-- QRIS -->
   <div class="card">
     <div class="title">QRIS PAYMENT</div>
-    <img class="qr-img" src="img/qris.png" alt="QRIS Image">
+    <img class="qr-img" src="qris.png" alt="QRIS Image">
     <div class="note">
       <ol style="padding-left: 20px;">
         <li>Perhatikan A/N sebelum transfer, jika terjadi kesalahan transfer bukan kesalahan admin.</li>
@@ -233,12 +231,11 @@
     </div>
   </div>
 
-  <!-- Footer -->
   <div class="footer">
     COPYRIGHT © By MYZUKII STORE 2025 || All assets are copyrighted
   </div>
 
-  <!-- Salin Script -->
+  <!-- Salin -->
   <script>
     function copyToClipboard(text) {
       navigator.clipboard.writeText(text).then(() => {
@@ -247,4 +244,5 @@
     }
   </script>
 </body>
-</html>
+  </html>
+  
