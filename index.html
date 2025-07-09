@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MYZUKII STORE - Payment</title>
+  <style>
+    /* Loading screen */
+    #loading-screen {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: #000;
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 9999;
+      font-size: 24px;
+      font-weight: bold;
+      animation: fadeOut 1s ease 2s forwards;
+    }
+
+    @keyframes fadeOut {
+      to {
+        opacity: 0;
+        visibility: hidden;
+      }
+    }
+
+    /* Background */
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: url('img/bg.jpg') center/cover no-repeat;
+      background-attachment: fixed;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 30px 10px;
+    }
+
+    .overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.4);
+      z-index: -1;
+    }
+
+    .card {
+      background: rgba(255, 255, 255, 0.75);
+      border-radius: 20px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+      padding: 25px;
+      width: 100%;
+      max-width: 420px;
+      margin-bottom: 25px;
+      text-align: center;
+      backdrop-filter: blur(5px);
+    }
+
+    .title {
+      font-size: 24px;
+      font-weight: bold;
+      color: #222;
+      margin-bottom: 20px;
+    }
+
+    .payment-method {
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      gap: 15px;
+      margin: 15px 0;
+    }
+
+    .payment-method img {
+      width: 40px;
+      height: 40px;
+      object-fit: contain;
+    }
+
+    .account-info {
+      font-size: 16px;
+      text-align: left;
+    }
+
+    .qr-img {
+      width: 80%;
+      border-radius: 15px;
+      margin-top: 10px;
+    }
+
+    .note {
+      font-size: 13px;
+      color: #333;
+      text-align: left;
+      margin-top: 15px;
+    }
+
+    .footer {
+      font-size: 12px;
+      color: #ccc;
+      margin-top: 30px;
+      text-align: center;
+    }
+
+    audio {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Animasi Loading -->
+  <div id="loading-screen">Memuat...</div>
+
+  <!-- Overlay Background -->
+  <div class="overlay"></div>
+
+  <!-- Musik Latar -->
+  <audio autoplay loop>
+    <source src="audio/music.mp3" type="audio/mp3">
+  </audio>
+
+  <!-- Konten -->
+  <div class="card">
+    <div class="title">MYZUKII STORE</div>
+
+    <div class="payment-method">
+      <img src="img/gopay.png" alt="GoPay">
+      <div class="account-info">
+        <strong>083173255250</strong><br />
+        M/D
+      </div>
+    </div>
+
+    <div class="payment-method">
+      <img src="img/dana.png" alt="DANA">
+      <div class="account-info">
+        <strong>083173255250</strong><br />
+        DAVIS
+      </div>
+    </div>
+
+    <div class="payment-method">
+      <img src="img/wa.png" alt="WhatsApp">
+      <div class="account-info">
+        <strong>083173255250</strong><br />
+        WhatsApp Order
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="title">QRIS PAYMENT</div>
+    <img class="qr-img" src="img/qris.png" alt="QRIS Image">
+    <div class="note">
+      <ol style="padding-left: 20px;">
+        <li>Perhatikan A/N sebelum transfer, jika terjadi kesalahan transfer bukan kesalahan admin.</li>
+        <li>Link dana langsung masuk ke aplikasinya, diharapkan lihat A/N.</li>
+      </ol>
+      <p><strong>BE A SMART BUYYER</strong></p>
+    </div>
+  </div>
+
+  <div class="footer">
+    COPYRIGHT © By MYZUKII STORE 2025 || All assets are copyrighted
+  </div>
+
+</body>
+</html>
