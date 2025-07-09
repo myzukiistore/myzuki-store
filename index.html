@@ -2,251 +2,240 @@
 <html lang="id">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>MYZUKII STORE - Payment</title>
   <style>
+    :root {
+      --card-bg: rgba(255, 255, 255, 0.2);
+      --card-blur: blur(10px);
+    }
+
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: url('bg.jpg') center/cover no-repeat fixed;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 20px 10px;
+      color: white;
+    }
+
+    .overlay {
+      position: fixed;
+      top: 0; left: 0; width: 100%; height: 100%;
+      background: rgba(0,0,0,0.6);
+      z-index: -1;
+    }
+
     #loading-screen {
       position: fixed;
       top: 0; left: 0; width: 100%; height: 100%;
-      background: #000; color: white;
-      display: flex; align-items: center; justify-content: center;
-      z-index: 9999; font-size: 24px; font-weight: bold;
+      background: #000;
+      color: white;
+      z-index: 9999;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
       animation: fadeOut 1s ease 2s forwards;
+    }
+
+    .spinner {
+      border: 4px solid rgba(255, 255, 255, 0.2);
+      border-left-color: white;
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      margin-top: 15px;
+      animation: spin 1s linear infinite;
     }
 
     @keyframes fadeOut {
       to { opacity: 0; visibility: hidden; }
     }
 
-    body {
-      margin: 0;
-      font-family: 'Segoe UI', sans-serif;
-      background: url('bg.jpg') center/cover no-repeat;
-      background-attachment: fixed;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      padding: 20px 10px;
-    }
-
-    .overlay {
-      position: fixed;
-      top: 0; left: 0; width: 100%; height: 100%;
-      background: rgba(0,0,0,0.4);
-      z-index: -1;
+    @keyframes spin {
+      to { transform: rotate(360deg); }
     }
 
     .top-bar {
       width: 100%;
       max-width: 420px;
+      background: rgba(255,255,255,0.3);
+      backdrop-filter: blur(10px);
+      border-radius: 16px;
+      padding: 10px 20px;
       display: flex;
       justify-content: space-between;
       align-items: center;
       margin-bottom: 20px;
-      background: rgba(255, 255, 255, 0.7);
-      padding: 10px 20px;
-      border-radius: 15px;
-      backdrop-filter: blur(5px);
-      box-shadow: 0 4px 15px rgba(0,0,0,0.15);
-      animation: slideInTop 0.6s ease;
-    }
-
-    @keyframes slideInTop {
-      from { transform: translateY(-60px); opacity: 0; }
-      to { transform: translateY(0); opacity: 1; }
     }
 
     .top-bar img.logo {
       height: 40px;
     }
 
-    .icon {
-      height: 30px;
+    .top-icons img {
       width: 30px;
-      margin-left: 10px;
+      height: 30px;
+      margin-left: 12px;
+      cursor: pointer;
       transition: transform 0.3s ease;
     }
 
-    .icon:hover {
+    .top-icons img:hover {
       transform: scale(1.1);
     }
 
-    .top-icons {
-      display: flex;
-      align-items: center;
-    }
-
     .card {
-      background: rgba(255, 255, 255, 0.75);
+      background: var(--card-bg);
+      backdrop-filter: var(--card-blur);
       border-radius: 20px;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-      padding: 25px;
+      padding: 20px;
       width: 100%;
       max-width: 420px;
-      margin-bottom: 25px;
-      text-align: center;
-      backdrop-filter: blur(5px);
-    }
-
-    .title {
-      font-size: 24px;
-      font-weight: bold;
-      color: #222;
       margin-bottom: 20px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.4);
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.3s ease;
     }
 
-    .payment-method {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin: 15px 0;
+    .card .content {
+      display: none;
+      margin-top: 10px;
     }
 
-    .payment-left {
-      display: flex;
-      align-items: center;
-      gap: 15px;
+    .card img.icon {
+      width: 50px;
+      height: 50px;
     }
 
-    .payment-left img {
-      width: 40px;
-      height: 40px;
-      object-fit: contain;
+    .card.active .content {
+      display: block;
     }
 
-    .account-info {
-      font-size: 16px;
-      text-align: left;
+    .qr-img {
+      width: 80%;
+      border-radius: 15px;
+      margin: 20px 0;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.4);
     }
 
     .copy-btn {
+      margin-top: 8px;
       padding: 6px 12px;
       background-color: #007bff;
       color: white;
       border: none;
       border-radius: 8px;
-      font-size: 12px;
       cursor: pointer;
-      transition: background 0.3s ease;
+      font-size: 13px;
     }
 
     .copy-btn:hover {
       background-color: #0056b3;
     }
 
-    .qr-img {
-      width: 80%;
-      border-radius: 15px;
+    .card .label {
+      font-size: 16px;
       margin-top: 10px;
     }
 
-    .note {
-      font-size: 13px;
-      color: #333;
-      text-align: left;
-      margin-top: 15px;
+    .title {
+      font-size: 22px;
+      font-weight: bold;
+      margin-bottom: 15px;
+      color: white;
     }
 
     .footer {
       font-size: 12px;
       color: #ccc;
-      margin-top: 30px;
+      margin-top: 40px;
       text-align: center;
     }
 
-    a {
-      color: inherit;
-      text-decoration: none;
-    }
-
-    a:hover {
-      opacity: 0.8;
-    }
-
-    audio {
-      display: none;
-    }
+    audio { display: none; }
   </style>
 </head>
 <body>
+  <div id="loading-screen">
+    Memuat halaman...
+    <div class="spinner"></div>
+  </div>
 
-  <!-- Loading -->
-  <div id="loading-screen">Memuat...</div>
   <div class="overlay"></div>
 
-  <!-- Musik -->
   <audio autoplay loop>
     <source src="music.mp3" type="audio/mp3">
   </audio>
 
   <!-- Bar Atas -->
   <div class="top-bar">
-    <img src="logo.png" alt="MYZUKII STORE Logo" class="logo" />
+    <img src="logo.png" class="logo" alt="Logo">
     <div class="top-icons">
-      <img class="icon" src="gopay.png" alt="GoPay" />
-      <a href="https://link.dana.id/qr/083173255250" target="_blank">
-        <img class="icon" src="dana.png" alt="DANA" />
-      </a>
-      <a href="https://wa.me/6283173255250" target="_blank">
-        <img class="icon" src="wa.png" alt="WhatsApp" />
-      </a>
+      <img src="gopay.png" alt="GoPay">
+      <img src="dana.png" alt="Dana">
+      <img src="wa.png" alt="WhatsApp">
     </div>
   </div>
 
-  <!-- Kartu Pembayaran -->
-  <div class="card">
-    <div class="title">MYZUKII STORE</div>
-
-    <div class="payment-method">
-      <div class="payment-left">
-        <img src="gopay.png" alt="GoPay">
-        <div class="account-info">
-          <strong>083173255250</strong><br />M/D
-        </div>
-      </div>
-      <button class="copy-btn" onclick="copyToClipboard('083173255250')">Salin</button>
-    </div>
-
-    <div class="payment-method">
-      <div class="payment-left">
-        <img src="dana.png" alt="Dana">
-        <div class="account-info">
-          <strong>083173255250</strong><br />DAVIS
-        </div>
-      </div>
-      <button class="copy-btn" onclick="copyToClipboard('083173255250')">Salin</button>
-    </div>
-
-    <div class="payment-method">
-      <div class="payment-left">
-        <img src="wa.png" alt="WhatsApp">
-        <div class="account-info">
-          <strong>083173255250</strong><br />WhatsApp Order
-        </div>
-      </div>
-      <button class="copy-btn" onclick="copyToClipboard('083173255250')">Salin</button>
+  <!-- Payment Cards -->
+  <div class="card" onclick="toggleCard(this)">
+    <img src="gopay.png" class="icon" alt="GoPay">
+    <div class="content">
+      <div class="label">083173255250<br>M/D</div>
+      <button class="copy-btn" onclick="event.stopPropagation(); copyToClipboard('083173255250')">Salin</button>
     </div>
   </div>
 
-  <!-- QRIS -->
+  <div class="card" onclick="toggleCard(this)">
+    <img src="dana.png" class="icon" alt="Dana">
+    <div class="content">
+      <div class="label">083173255250<br>DAVIS</div>
+      <button class="copy-btn" onclick="event.stopPropagation(); copyToClipboard('083173255250')">Salin</button>
+    </div>
+  </div>
+
+  <div class="card" onclick="toggleCard(this)">
+    <img src="wa.png" class="icon" alt="WhatsApp">
+    <div class="content">
+      <div class="label">083173255250<br>WhatsApp Order</div>
+      <button class="copy-btn" onclick="event.stopPropagation(); copyToClipboard('083173255250')">Salin</button>
+    </div>
+  </div>
+
+  <!-- QRIS (tanpa card) -->
+  <div class="title">QRIS PAYMENT</div>
+  <img src="qris.png" class="qr-img" alt="QRIS">
+
+  <!-- Keamanan (card) -->
   <div class="card">
-    <div class="title">QRIS PAYMENT</div>
-    <img class="qr-img" src="qris.png" alt="QRIS Image">
-    <div class="note">
-      <ol style="padding-left: 20px;">
-        <li>Perhatikan A/N sebelum transfer, jika terjadi kesalahan transfer bukan kesalahan admin.</li>
-        <li>Link Dana langsung masuk ke aplikasinya, diharapkan lihat A/N.</li>
+    <div class="title">PERHATIAN!</div>
+    <div class="label" style="text-align: left; font-size: 14px;">
+      <ol>
+        <li>Perhatikan A/N sebelum transfer. Jika terjadi kesalahan, bukan tanggung jawab admin.</li>
+        <li>Link Dana langsung masuk ke aplikasi, harap cek kembali A/N.</li>
       </ol>
       <p><strong>BE A SMART BUYYER</strong></p>
     </div>
   </div>
 
+  <!-- Footer -->
   <div class="footer">
     COPYRIGHT © By MYZUKII STORE 2025 || All assets are copyrighted
   </div>
 
-  <!-- Salin -->
+  <!-- Script -->
   <script>
+    function toggleCard(card) {
+      card.classList.toggle('active');
+    }
+
     function copyToClipboard(text) {
       navigator.clipboard.writeText(text).then(() => {
         alert("Nomor berhasil disalin: " + text);
