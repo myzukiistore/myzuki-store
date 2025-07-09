@@ -32,15 +32,16 @@
     #loading-screen {
       position: fixed;
       top: 0; left: 0; width: 100%; height: 100%;
-      background: #000;
-      color: white;
+      background: url('bg.jpg') center/cover no-repeat;
       z-index: 9999;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      font-size: 24px;
-      animation: fadeOut 1s ease 2s forwards;
+      color: white;
+      font-size: 22px;
+      text-align: center;
+      animation: fadeOut 1s ease 2.5s forwards;
     }
 
     .spinner {
@@ -109,13 +110,13 @@
       margin-top: 10px;
     }
 
+    .card.active .content {
+      display: block;
+    }
+
     .card img.icon {
       width: 50px;
       height: 50px;
-    }
-
-    .card.active .content {
-      display: block;
     }
 
     .qr-img {
@@ -125,8 +126,13 @@
       box-shadow: 0 4px 20px rgba(0,0,0,0.4);
     }
 
-    .copy-btn {
-      margin-top: 8px;
+    .label {
+      font-size: 16px;
+      margin-top: 10px;
+    }
+
+    .copy-btn, .link-btn {
+      margin: 5px 5px 0 5px;
       padding: 6px 12px;
       background-color: #007bff;
       color: white;
@@ -136,13 +142,8 @@
       font-size: 13px;
     }
 
-    .copy-btn:hover {
+    .copy-btn:hover, .link-btn:hover {
       background-color: #0056b3;
-    }
-
-    .card .label {
-      font-size: 16px;
-      margin-top: 10px;
     }
 
     .title {
@@ -150,6 +151,7 @@
       font-weight: bold;
       margin-bottom: 15px;
       color: white;
+      text-align: center;
     }
 
     .footer {
@@ -159,28 +161,47 @@
       text-align: center;
     }
 
+    .popup {
+      position: fixed;
+      top: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #28a745;
+      padding: 10px 20px;
+      border-radius: 10px;
+      color: white;
+      font-weight: bold;
+      z-index: 9999;
+      display: none;
+      animation: fade 2s ease forwards;
+    }
+
+    @keyframes fade {
+      0% { opacity: 1; }
+      80% { opacity: 1; }
+      100% { opacity: 0; display: none; }
+    }
+
     audio { display: none; }
   </style>
 </head>
 <body>
   <div id="loading-screen">
-    Memuat halaman...
+    BE PATIENT WHILE LOGGING INTO WEB PAY
     <div class="spinner"></div>
   </div>
 
   <div class="overlay"></div>
+  <audio autoplay loop><source src="music.mp3" type="audio/mp3"></audio>
+  <div class="popup" id="popup-success">SUCCESS!</div>
 
-  <audio autoplay loop>
-    <source src="music.mp3" type="audio/mp3">
-  </audio>
-
-  <!-- Bar Atas -->
+  <!-- Top Bar -->
   <div class="top-bar">
     <img src="logo.png" class="logo" alt="Logo">
     <div class="top-icons">
       <img src="gopay.png" alt="GoPay">
       <img src="dana.png" alt="Dana">
-      <img src="wa.png" alt="WhatsApp">
+      <img src="wa.png" alt="WA">
     </div>
   </div>
 
@@ -198,26 +219,30 @@
     <div class="content">
       <div class="label">083173255250<br>DAVIS</div>
       <button class="copy-btn" onclick="event.stopPropagation(); copyToClipboard('083173255250')">Salin</button>
+      <a href="https://link.dana.id/qr/083173255250" target="_blank">
+        <button class="link-btn" onclick="event.stopPropagation();">Buka Link</button>
+      </a>
     </div>
   </div>
 
   <div class="card" onclick="toggleCard(this)">
-    <img src="wa.png" class="icon" alt="WhatsApp">
+    <img src="wa.png" class="icon" alt="WA">
     <div class="content">
       <div class="label">083173255250<br>WhatsApp Order</div>
       <button class="copy-btn" onclick="event.stopPropagation(); copyToClipboard('083173255250')">Salin</button>
+      <button class="link-btn" onclick="event.stopPropagation(); confirmRedirect()">Buka Link</button>
     </div>
   </div>
 
-  <!-- QRIS (tanpa card) -->
+  <!-- QRIS -->
   <div class="title">QRIS PAYMENT</div>
   <img src="qris.png" class="qr-img" alt="QRIS">
 
-  <!-- Keamanan (card) -->
+  <!-- Keamanan -->
   <div class="card">
     <div class="title">PERHATIAN!</div>
-    <div class="label" style="text-align: left; font-size: 14px;">
-      <ol>
+    <div class="label" style="text-align: center; font-size: 14px;">
+      <ol style="text-align: center; padding-left: 20px;">
         <li>Perhatikan A/N sebelum transfer. Jika terjadi kesalahan, bukan tanggung jawab admin.</li>
         <li>Link Dana langsung masuk ke aplikasi, harap cek kembali A/N.</li>
       </ol>
@@ -225,10 +250,7 @@
     </div>
   </div>
 
-  <!-- Footer -->
-  <div class="footer">
-    COPYRIGHT © By MYZUKII STORE 2025 || All assets are copyrighted
-  </div>
+  <div class="footer">COPYRIGHT © By MYZUKII STORE 2025 || All assets are copyrighted</div>
 
   <!-- Script -->
   <script>
@@ -238,8 +260,20 @@
 
     function copyToClipboard(text) {
       navigator.clipboard.writeText(text).then(() => {
-        alert("Nomor berhasil disalin: " + text);
+        showSuccess();
       });
+    }
+
+    function showSuccess() {
+      const popup = document.getElementById("popup-success");
+      popup.style.display = "block";
+      setTimeout(() => { popup.style.display = "none"; }, 2000);
+    }
+
+    function confirmRedirect() {
+      if (confirm("Ingin membuka WhatsApp sekarang?")) {
+        window.open("https://wa.me/6283173255250", "_blank");
+      }
     }
   </script>
 </body>
