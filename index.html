@@ -183,7 +183,7 @@
   <div class="top-bar">
     <img src="logo.png" alt="MYZUKII STORE Logo" class="logo" />
     <div class="top-icons">
-      <a href="#"><img class="icon" src="gopay.png" alt="GoPay" /></a>
+      <img class="icon" src="gopay.png" alt="GoPay" />
       <a href="https://link.dana.id/qr/083173255250" target="_blank">
         <img class="icon" src="dana.png" alt="DANA" />
       </a>
@@ -196,6 +196,16 @@
   <!-- Kartu Pembayaran -->
   <div class="card">
     <div class="title">MYZUKII STORE</div>
+
+    <div class="payment-method">
+      <div class="payment-left">
+        <img src="gopay.png" alt="GoPay">
+        <div class="account-info">
+          <strong>083173255250</strong><br />M/D
+        </div>
+      </div>
+      <button class="copy-btn" onclick="copyToClipboard('083173255250')">Salin</button>
+    </div>
 
     <div class="payment-method">
       <div class="payment-left">
@@ -244,5 +254,4 @@
     }
   </script>
 </body>
-  </html>
-  
+</html>
